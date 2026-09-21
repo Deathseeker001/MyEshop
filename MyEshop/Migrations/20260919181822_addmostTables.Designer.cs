@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyEshop.Data;
 
@@ -10,9 +11,11 @@ using MyEshop.Data;
 namespace MyEshop.Migrations
 {
     [DbContext(typeof(MyEshopContext))]
-    partial class MyEshopContextModelSnapshot : ModelSnapshot
+    [Migration("20260919181822_addmostTables")]
+    partial class addmostTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,68 +84,6 @@ namespace MyEshop.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("CategoryToProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            CategoryId = 1
-                        },
-                        new
-                        {
-                            ProductId = 1,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            ProductId = 1,
-                            CategoryId = 3
-                        },
-                        new
-                        {
-                            ProductId = 1,
-                            CategoryId = 4
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 1
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 3
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 4
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 1
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 3
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 4
-                        });
                 });
 
             modelBuilder.Entity("MyEshop.Models.Item", b =>
@@ -154,7 +95,7 @@ namespace MyEshop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("Money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
@@ -162,26 +103,6 @@ namespace MyEshop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Price = 854.0m,
-                            QuantityInStock = 5
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Price = 3302.0m,
-                            QuantityInStock = 8
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Price = 2500m,
-                            QuantityInStock = 3
-                        });
                 });
 
             modelBuilder.Entity("MyEshop.Models.Product", b =>
@@ -209,29 +130,6 @@ namespace MyEshop.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "this is asp.net course",
-                            ItemId = 1,
-                            Name = "ASP.Net"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "this is python course",
-                            ItemId = 2,
-                            Name = "Python"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "this is Java course",
-                            ItemId = 3,
-                            Name = "Java"
-                        });
                 });
 
             modelBuilder.Entity("MyEshop.Models.CategoryToProduct", b =>
