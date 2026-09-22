@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyEshop.Data;
 using MyEshop.Models;
 
@@ -18,10 +19,36 @@ namespace MyEshop.Controllers
 
         public IActionResult Index()
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products
+                .ToList();
             return View(products);
         }
         public IActionResult Detail(int id)
+        {
+            var product = _context.Products
+                .Include(p => p.Item)
+                .SingleOrDefault(p => p.Id == id);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+
+            var categories = _context.Products
+                .Where(p => p.Id == id)
+                .SelectMany(c => c.CategoryToProducts)
+                .Select(ca => ca.Category)
+                .ToList();
+
+            var vm = new DetailsViewModel()
+            {
+                Product = product,
+                Categories = categories
+            };
+
+            return View(vm);
+        }
+        public IActionResult AddToCart(int itemId)
         {
             return null;
         }
