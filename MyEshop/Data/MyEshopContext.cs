@@ -94,7 +94,6 @@ namespace MyEshop.Data
 
             }
             );
-
             modelBuilder.Entity<Product>().HasData(
             new Product()
             {
@@ -136,6 +135,7 @@ namespace MyEshop.Data
                  new CategoryToProduct() { CategoryId = 4, ProductId = 3 }
 
                 );
+
             #endregion
            base.OnModelCreating(modelBuilder);
         }

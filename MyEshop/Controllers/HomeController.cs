@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MyEshop.Data;
 using MyEshop.Models;
 
 namespace MyEshop.Controllers
@@ -7,16 +8,24 @@ namespace MyEshop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private MyEshopContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MyEshopContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _context.Products.ToList();
+            return View(products);
         }
+        public IActionResult Detail(int id)
+        {
+            return null;
+        }
+
         [Route("contactUs")]
         public IActionResult ContactUs()
         {
