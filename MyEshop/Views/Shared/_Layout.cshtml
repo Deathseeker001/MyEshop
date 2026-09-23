@@ -34,9 +34,15 @@
     </header>
 
     <div class="container flex-grow-1">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+       <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("ProductGroupsComponent")
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+           
+       </div>
     </div>
 
     <footer class="border-top text-muted py-3" style="background-color: #f8f9fa;">
