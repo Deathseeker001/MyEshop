@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MyEshop.Data;
+using MyEshop.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,12 @@ builder.Services.AddControllersWithViews();
 #region Db Context 
 builder.Services.AddDbContext<MyEshopContext>(options =>
  options.UseSqlServer("Data Source = GHAZALEH\\SQLEXPRESS; Initial Catalog = EshopCore_DB ; Integrated Security = True; TrustServerCertificate=True;"));
+#endregion
+
+#region Ioc
+
+builder.Services.AddScoped<IGroupRepository , GroupRepository>();
+
 #endregion
 var app = builder.Build();
 
