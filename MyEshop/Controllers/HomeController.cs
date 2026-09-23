@@ -10,6 +10,7 @@ namespace MyEshop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private MyEshopContext _context;
+        private static Cart _cart = new Cart();
 
         public HomeController(ILogger<HomeController> logger, MyEshopContext context)
         {
@@ -50,7 +51,33 @@ namespace MyEshop.Controllers
         }
         public IActionResult AddToCart(int itemId)
         {
-            return null;
+            var product = _context.Products.Include(p => p.Item).SingleOrDefault(p => p.ItemId == itemId);
+            if(product != null)
+            {
+                var cartItem = new CartItem()
+                {
+                    Item = product.Item,
+                    Quantity = 1
+                };
+                _cart.addItem(cartItem);
+            }
+            return RedirectToAction("ShowCart");
+        }
+
+        public IActionResult ShowCart()
+        {
+            var cartVM = new CartViewModel()
+            {
+                CartItems = _cart.CartItem,
+                OrderTotal = _cart.CartItem.Sum(c => c.getTotalPrice())
+            };
+            return View(cartVM);
+        }
+
+        public IActionResult RemoveFromCart(int itemId)
+        {
+            _cart.removeItem(itemId);
+            return RedirectToAction("ShowCart");
         }
 
         [Route("contactUs")]

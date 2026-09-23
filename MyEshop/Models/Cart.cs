@@ -10,7 +10,7 @@
         public List<CartItem> CartItem { get; set; }
         public void addItem(CartItem item)
         {
-            if (CartItem.Exists(i => i.Id == item.Id))
+            if (CartItem.Exists(i => i.Item.Id == item.Item.Id))
             {
                 CartItem.Find(i => i.Item.Id == item.Item.Id).Quantity += 1;
             }
@@ -27,9 +27,9 @@
             {
                 CartItem.Remove(item);
             }
-            else if (item! == null)
+            else if (item != null)
             {
-                item.Quantity -= 1;
+                item.Quantity -=  1;
             }
         }
     }
