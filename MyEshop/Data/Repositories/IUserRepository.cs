@@ -1,0 +1,31 @@
+﻿using MyEshop.Models;
+using System.Linq;
+
+namespace MyEshop.Data.Repositories
+{
+    public interface IUserRepository
+    {
+        bool IsExistUserByEmail(string email);
+        void AddUser(Users user);
+        // Users GetUserForLogin()
+    }
+
+    public class UserRepository : IUserRepository
+    {
+        private MyEshopContext _context;
+        public UserRepository(MyEshopContext context)
+        {
+            _context = context;
+        }
+        public void AddUser(Users user)
+        {
+             _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+
+        public bool IsExistUserByEmail(string email)
+        {
+            return _context.Users.Any(u => u.Email == email);
+        }
+    }
+}
